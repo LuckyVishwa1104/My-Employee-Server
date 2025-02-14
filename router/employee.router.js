@@ -12,4 +12,6 @@ router.post('/employee', EmployeeController.singleEmployee);
 
 router.post('/deleteEmployee', EmployeeController.deleteEmployee);
 
+router.patch('/updateEmployee', EmployeeController.updateEmployee);
+
 module.exports = router;
