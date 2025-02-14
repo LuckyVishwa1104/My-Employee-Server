@@ -75,3 +75,18 @@ exports.deleteEmployee = async (req, res, next) => {
         next(error);
     }
 }
+
+// controller for updating employee-details
+exports.updateEmployee = async (req, res) => {
+    try {   
+        const { id } = req.query; 
+        const updatedData = req.body;
+        if (!id) {
+            return res.status(400).json({ message: "Employee ID is required" });
+        }
+        const updatedEmployee = await EmployeeServices.updateEmployee(id, updatedData,);
+        res.status(200).json({ message: 'employee updated successfully', data: updatedEmployee},);
+    } catch (error) {
+        res.status(400).json({ message: 'failed to update employee details', error: error.message, });
+    }
+} 
