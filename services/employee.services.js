@@ -38,7 +38,6 @@ class EmployeeServices {
         };
     }
 
-
     static async uploadPhoto(email, type) {
 
         const s3Client = new S3Client({
@@ -118,6 +117,17 @@ class EmployeeServices {
     static async deleteEmployee(_id) {
         const deleted = await EmployeeModel.findOneAndDelete({ _id: _id });
         return deleted;
+    }
+
+    static async updateEmployee(id, updatedData) {
+        try {
+            const updateEmployee = await EmployeeModel.findByIdAndUpdate(id, { $set: updatedData, },  { new: true, runValidators: true });
+            if (!updateEmployee) { throw new Error('Employee Not Found'); }
+            return updateEmployee;
+        } catch (error) {
+            console.error('Error updating employee : ', error.message);
+            throw new Error(error.message);
+        }
     }
 }
 
